@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CHINOTECH ONE MARKETPLACE</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #101c3d, #1769e0);
+    color: white;
+    padding: 18px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tagline {
+    font-size: 12px;
+    opacity: .85;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+button,
+.button {
+    border: none;
+    border-radius: 25px;
+    padding: 11px 17px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.follow {
+    background: white;
+    color: #1769e0;
+}
+
+.chat {
+    background: #16c784;
+    color: white;
+}
+
+.pstake {
+    background: #ffc107;
+    color: black;
+}
+
+/* HERO */
+.hero {
+    background: white;
+    text-align: center;
+    padding: 45px 5%;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #667085;
+    max-width: 750px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+.search {
+    max-width: 700px;
+    margin: 25px auto 0;
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    overflow: hidden;
+    background: white;
+}
+
+.search input {
+    flex: 1;
+    padding: 16px 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search button {
+    background: #1769e0;
+    color: white;
+    border-radius: 0;
+}
+
+/* CATEGORIES */
+.categories {
+    padding: 30px 5%;
+}
+
+.categories h2,
+.products h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-list {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.category {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.category:hover {
+    background: #1769e0;
+    color: white;
+}
+
+/* PRODUCTS */
+.products {
+    padding: 20px 5% 60px;
+}
+
+.product-grid {
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+}
+
+.product {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .2s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+}
+
+.product-image {
+    height: 150px;
+    background: linear-gradient(135deg,#eaf1ff,#f8fbff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 55px;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h3 {
+    margin: 7px 0;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 13px;
+}
+
+.product-price {
+    color: #1769e0;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.buy {
+    width: 100%;
+    background: #1769e0;
+    color: white;
+    border-radius: 10px;
+}
+
+/* CHAT BOX */
+.chat-box {
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    width: 320px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    z-index: 2000;
+}
+
+.chat-box textarea {
+    width: 100%;
+    height: 100px;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.chat-box a {
+    display: block;
+    text-align: center;
+    background: #16c784;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* FLOAT CHAT */
+.floating-chat {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #16c784;
+    color: white;
+    border: none;
+    font-size: 25px;
+    z-index: 1500;
+}
+
+/* FOOTER */
+footer {
+    background: #101827;
+    color: white;
+    text-align: center;
+    padding: 35px 5%;
+}
+
+footer p {
+    margin-top: 10px;
+    color: #bbb;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons button,
+    .buttons a {
+        flex: 1;
+        text-align: center;
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-image {
+        height: 110px;
+        font-size: 40px;
+    }
+
+    .chat-box {
+        left: 15px;
+        right: 15px;
+        width: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header-content">
+
+<div>
+<div class="logo">CHINOTECH ONE MARKETPLACE</div>
+<div class="tagline">Shop • Discover • Connect</div>
+</div>
+
+<div class="buttons">
+
+<button class="follow" onclick="followUser()" id="followButton">
+＋ Follow
+</button>
+
+<button class="chat" onclick="openChat()">
+💬 Chat
+</button>
+
+<a
+class="button pstake"
+href="PASTE-YOUR-PSTAKE-LINK-HERE"
+target="_blank">
+Pstake
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Everything You Need In One Marketplace</h1>
+
+<p>
+Welcome to CHINOTECH ONE Marketplace.
+Discover phones, laptops, cars, fashion, electronics,
+home appliances, accessories, sports products and much more.
+</p>
+
+<div class="search">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search products..."
+onkeyup="searchProducts()">
+
+<button onclick="searchProducts()">
+Search
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section class="categories">
+
+<h2>Browse Categories</h2>
+
+<div class="category-list">
+
+<button class="category" onclick="filterProducts('all')">
+All
+</button>
+
+<button class="category" onclick="filterProducts('phones')">
+📱 Phones
+</button>
+
+<button class="category" onclick="filterProducts('laptops')">
+💻 Laptops
+</button>
+
+<button class="category" onclick="filterProducts('cars')">
+🚗 Cars
+</button>
+
+<button class="category" onclick="filterProducts('shoes')">
+👟 Shoes
+</button>
+
+<button class="category" onclick="filterProducts('boots')">
+🥾 Boots
+</button>
+
+<button class="category" onclick="filterProducts('electronics')">
+⚡ Electronics
+</button>
+
+<button class="category" onclick="filterProducts('fashion')">
+👗 Fashion
+</button>
+
+<button class="category" onclick="filterProducts('jewelry')">
+💍 Jewelry
+</button>
+
+<button class="category" onclick="filterProducts('appliances')">
+🧊 Appliances
+</button>
+
+<button class="category" onclick="filterProducts('sports')">
+⚽ Sports
+</button>
+
+<button class="category" onclick="filterProducts('drones')">
+🚁 Drones
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section class="products">
+
+<h2>Featured Products</h2>
+
+<div class="product-grid" id="productGrid">
+
+
+<!-- PHONE -->
+
+<div class="product" data-category="phones">
+
+<div class="product-image">📱</div>
+
+<div class="product-info">
+
+<small>Phones</small>
+
+<h3>Smartphones</h3>
+
+<p>
+Different brands and models of smartphones.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Smartphone')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- LAPTOP -->
+
+<div class="product" data-category="laptops">
+
+<div class="product-image">💻</div>
+
+<div class="product-info">
+
+<small>Laptops</small>
+
+<h3>Laptops</h3>
+
+<p>
+Business, school, gaming and everyday laptops.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Laptop')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CARS -->
+
+<div class="product" data-category="cars">
+
+<div class="product-image">🚗</div>
+
+<div class="product-info">
+
+<small>Cars</small>
+
+<h3>Cars & Vehicles</h3>
+
+<p>
+Different brands and types of cars.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Car')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SHOES -->
+
+<div class="product" data-category="shoes">
+
+<div class="product-image">👟</div>
+
+<div class="product-info">
+
+<small>Shoes</small>
+
+<h3>Fashion Shoes</h3>
+
+<p>
+Different styles of shoes for everyday use.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Shoes')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BOOTS -->
+
+<div class="product" data-category="boots">
+
+<div class="product-image">🥾</div>
+
+<div class="product-info">
+
+<small>Boots</small>
+
+<h3>Boots</h3>
+
+<p>
+Fashion, work and outdoor boots.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Boots')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- EARPHONES -->
+
+<div class="product" data-category="electronics">
+
+<div class="product-image">🎧</div>
+
+<div class="product-info">
+
+<small>Electronics</small>
+
+<h3>Earphones</h3>
+
+<p>
+Wireless and wired audio accessories.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Earphones')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CHARGERS -->
+
+<div class="product" data-category="electronics">
+
+<div class="product-image">🔌</div>
+
+<div class="product-info">
+
+<small>Electronics</small>
+
+<h3>Chargers</h3>
+
+<p>
+Phone chargers and charging accessories.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Charger')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- NAILS -->
+
+<div class="product" data-category="fashion">
+
+<div class="product-image">💅</div>
+
+<div class="product-info">
+
+<small>Beauty</small>
+
+<h3>Nails</h3>
+
+<p>
+Different nail styles and accessories.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Nails')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- NECKLACES -->
+
+<div class="product" data-category="jewelry">
+
+<div class="product-image">📿</div>
+
+<div class="product-info">
+
+<small>Jewelry</small>
+
+<h3>Necklaces</h3>
+
+<p>
+Different necklace styles and designs.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Necklace')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- EYEGLASSES -->
+
+<div class="product" data-category="fashion">
+
+<div class="product-image">👓</div>
+
+<div class="product-info">
+
+<small>Fashion</small>
+
+<h3>Eyeglasses</h3>
+
+<p>
+Different eyeglass frames and styles.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Eyeglasses')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CLOTHES -->
+
+<div class="product" data-category="fashion">
+
+<div class="product-image">👔</div>
+
+<div class="product-info">
+
+<small>Fashion</small>
+
+<h3>Men's Clothes</h3>
+
+<p>
+Shirts, trousers, jackets and more.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Mens Clothes')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product" data-category="fashion">
+
+<div class="product-image">👗</div>
+
+<div class="product-info">
+
+<small>Fashion</small>
+
+<h3>Women's Clothes</h3>
+
+<p>
+Dresses, tops, skirts and more.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Womens Clothes')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- FANS -->
+
+<div class="product" data-category="electronics">
+
+<div class="product-image">🌀</div>
+
+<div class="product-info">
+
+<small>Electronics</small>
+
+<h3>Electric Fans</h3>
+
+<p>
+Standing, table and rechargeable fans.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Electric Fan')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- DRONES -->
+
+<div class="product" data-category="drones">
+
+<div class="product-image">🚁</div>
+
+<div class="product-info">
+
+<small>Drones</small>
+
+<h3>Drones</h3>
+
+<p>
+Different drone models and accessories.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Drone')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ELECTRIC HAND FAN -->
+
+<div class="product" data-category="electronics">
+
+<div class="product-image">🪭</div>
+
+<div class="product-info">
+
+<small>Electronics</small>
+
+<h3>Electric Hand Fans</h3>
+
+<p>
+Portable rechargeable cooling fans.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Electric Hand Fan')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SPORTS -->
+
+<div class="product" data-category="sports">
+
+<div class="product-image">⚽</div>
+
+<div class="product-info">
+
+<small>Sports</small>
+
+<h3>Balls & Sports Gear</h3>
+
+<p>
+Football, basketball and sports equipment.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Sports Equipment')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- REFRIGERATOR -->
+
+<div class="product" data-category="appliances">
+
+<div class="product-image">🧊</div>
+
+<div class="product-info">
+
+<small>Home Appliances</small>
+
+<h3>Refrigerators</h3>
+
+<p>
+Different refrigerator types and sizes.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Refrigerator')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+
+<!-- HOME APPLIANCES -->
+
+<div class="product" data-category="appliances">
+
+<div class="product-image">🏠</div>
+
+<div class="product-info">
+
+<small>Home Appliances</small>
+
+<h3>Home Appliances</h3>
+
+<p>
+Different useful devices for your home.
+</p>
+
+<div class="product-price">
+View Product
+</div>
+
+<button class="buy" onclick="openChat('Home Appliance')">
+💬 Ask About Product
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CHAT -->
+
+<div class="chat-box" id="chatBox">
+
+<h3>💬 CHINOTECH ONE CHAT</h3>
+
+<p>
+Send us a message about the product you want.
+</p>
+
+<textarea id="message"
+placeholder="Type your message..."></textarea>
+
+<a
+href="#"
+onclick="sendWhatsApp(); return false;">
+Send Message
+</a>
+
+<br>
+
+<button onclick="closeChat()">
+Close
+</button>
+
+</div>
+
+
+<!-- FLOATING CHAT -->
+
+<button
+class="floating-chat"
+onclick="openChat()">
+💬
+</button>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h2>CHINOTECH ONE MARKETPLACE</h2>
+
+<p>
+Your broad online marketplace for technology,
+fashion, vehicles, electronics and everyday products.
+</p>
+
+<p>
+© 2026 CHINOTECH ONE. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script>
+
+/* FOLLOW BUTTON */
+
+function followUser() {
+
+    const button =
+    document.getElementById("followButton");
+
+    if(button.innerText.includes("Followed")) {
+
+        button.innerText = "＋ Follow";
+
+    } else {
+
+        button.innerText = "✓ Followed";
+
+    }
+
+}
+
+
+/* CHAT */
+
+function openChat(product = "") {
+
+    document.getElementById("chatBox").style.display = "block";
+
+    if(product) {
+
+        document.getElementById("message").value =
+        "Hello CHINOTECH ONE, I am interested in " +
+        product +
+        ". Please provide more information.";
+
+    }
+
+}
+
+
+function closeChat() {
+
+    document.getElementById("chatBox").style.display = "none";
+
+}
+
+
+/* WHATSAPP */
+
+function sendWhatsApp() {
+
+    const message =
+    document.getElementById("message").value;
+
+    if(!message) {
+
+        alert("Please type a message.");
+
+        return;
+
+    }
+
+    /*
+    CHANGE THIS NUMBER TO YOUR WHATSAPP NUMBER.
+
+    Use international format without +.
+
+    Example:
+    2348012345678
+    */
+
+    const phone = "2348012345678";
+
+    const url =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(message);
+
+    window.open(url, "_blank");
+
+}
+
+
+/* CATEGORY FILTER */
+
+function filterProducts(category) {
+
+    const products =
+    document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+        if(
+            category === "all" ||
+            product.dataset.category === category
+        ) {
+
+            product.style.display = "block";
+
+        } else {
+
+            product.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* SEARCH */
+
+function searchProducts() {
+
+    const search =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    const products =
+    document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+        const text =
+        product.innerText.toLowerCase();
+
+        if(text.includes(search)) {
+
+            product.style.display = "block";
+
+        } else {
+
+            product.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
