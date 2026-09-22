@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoltDrive — Electric Vehicle Account</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --red:#e82127;
+    --red2:#ff3b42;
+    --black:#050505;
+    --dark:#101010;
+    --card:#171717;
+    --line:#292929;
+    --text:#f5f5f5;
+    --muted:#929292;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050505;
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,input,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   DISCLAIMER
+========================= */
+
+.demo-banner{
+    background:#210a0c;
+    border-bottom:1px solid #572125;
+    color:#e7a8aa;
+    padding:9px 15px;
+    text-align:center;
+    font-size:11px;
+}
+
+.demo-banner strong{
+    color:#ff656b;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.auth-screen{
+    min-height:calc(100vh - 34px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 18px;
+    background:
+        radial-gradient(circle at 50% 20%,#3b1014 0,transparent 38%),
+        #050505;
+}
+
+.auth-box{
+    width:100%;
+    max-width:440px;
+    background:#111;
+    border:1px solid #2b2b2b;
+    border-radius:18px;
+    padding:40px;
+    box-shadow:0 30px 100px #000;
+}
+
+.brand{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.red-mark{
+    width:65px;
+    height:65px;
+    margin:0 auto 12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--red);
+    font-family:Georgia,serif;
+    font-weight:bold;
+    font-size:55px;
+    transform:scaleX(.72);
+    border-bottom:3px solid var(--red);
+}
+
+.brand h1{
+    letter-spacing:4px;
+    font-size:20px;
+}
+
+.brand p{
+    color:#777;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-top:5px;
+}
+
+.auth-box h2{
+    text-align:center;
+    margin-bottom:8px;
+    font-size:28px;
+}
+
+.auth-subtitle{
+    color:#858585;
+    text-align:center;
+    margin-bottom:27px;
+    font-size:14px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+.field label{
+    display:block;
+    font-size:12px;
+    color:#bbb;
+    margin-bottom:8px;
+}
+
+.field input,
+.field select{
+    width:100%;
+    background:#090909;
+    border:1px solid #333;
+    color:white;
+    padding:14px;
+    border-radius:8px;
+    outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:var(--red);
+}
+
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap button{
+    position:absolute;
+    right:7px;
+    top:7px;
+    height:38px;
+    background:transparent;
+    border:0;
+    color:#999;
+    padding:0 10px;
+}
+
+.primary{
+    width:100%;
+    border:0;
+    background:var(--red);
+    color:#fff;
+    padding:15px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.primary:hover{
+    background:var(--red2);
+}
+
+.secondary{
+    width:100%;
+    border:1px solid #444;
+    background:#111;
+    color:#fff;
+    padding:14px;
+    border-radius:8px;
+    margin-top:12px;
+}
+
+.auth-links{
+    text-align:center;
+    margin-top:22px;
+    color:#777;
+    font-size:13px;
+}
+
+.auth-links a{
+    color:#ff5157;
+    text-decoration:none;
+}
+
+.notice{
+    margin-top:25px;
+    background:#1a0d0e;
+    border:1px solid #3b191b;
+    border-radius:8px;
+    padding:12px;
+    color:#a7787b;
+    font-size:10px;
+    line-height:1.5;
+    text-align:center;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    display:none;
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:245px;
+    background:#090909;
+    border-right:1px solid #242424;
+    padding:25px 15px;
+    z-index:20;
+}
+
+.side-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 10px 28px;
+}
+
+.side-logo{
+    color:var(--red);
+    font-family:Georgia,serif;
+    font-size:36px;
+    transform:scaleX(.7);
+    font-weight:bold;
+}
+
+.side-brand strong{
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+.side-brand small{
+    display:block;
+    color:#666;
+    font-size:8px;
+    letter-spacing:1px;
+    margin-top:4px;
+}
+
+.nav-title{
+    color:#555;
+    font-size:9px;
+    letter-spacing:2px;
+    padding:12px 12px 8px;
+}
+
+.nav button{
+    width:100%;
+    background:transparent;
+    border:0;
+    color:#aaa;
+    text-align:left;
+    padding:13px 12px;
+    border-radius:8px;
+    margin-bottom:3px;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:#1b1b1b;
+    color:white;
+}
+
+.nav button.active{
+    border-left:3px solid var(--red);
+}
+
+.logout{
+    position:absolute;
+    bottom:20px;
+    left:15px;
+    right:15px;
+    border:1px solid #333;
+    background:transparent;
+    color:#aaa;
+    padding:12px;
+    border-radius:8px;
+}
+
+.main{
+    margin-left:245px;
+    min-height:100vh;
+    padding:30px 4%;
+    background:
+        radial-gradient(circle at 70% 0,#21090b 0,transparent 35%),
+        #080808;
+}
+
+.mobile-top{
+    display:none;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    font-size:31px;
+}
+
+.page-header p{
+    color:#777;
+    margin-top:6px;
+}
+
+.profile-pill{
+    border:1px solid #333;
+    padding:9px 14px;
+    border-radius:20px;
+    color:#aaa;
+    font-size:12px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.vehicle-hero{
+    min-height:390px;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    background:
+        linear-gradient(90deg,rgba(0,0,0,.95),rgba(0,0,0,.15)),
+        url("https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1800&q=85");
+    background-size:cover;
+    background-position:center;
+    border:1px solid #292929;
+}
+
+.vehicle-info{
+    position:absolute;
+    left:45px;
+    bottom:40px;
+}
+
+.vehicle-info span{
+    color:#ff4a50;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.vehicle-info h2{
+    font-size:48px;
+    margin:8px 0;
+}
+
+.vehicle-info p{
+    color:#aaa;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:18px;
+}
+
+.stat{
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:22px;
+}
+
+.stat span{
+    color:#777;
+    font-size:11px;
+}
+
+.stat strong{
+    display:block;
+    font-size:23px;
+    margin-top:7px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:20px;
+}
+
+.card{
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:13px;
+    padding:23px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#858585;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* =========================
+   VEHICLES
+========================= */
+
+.vehicle-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.vehicle-card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.vehicle-image{
+    height:190px;
+    background-size:cover;
+    background-position:center;
+}
+
+.vehicle-card-body{
+    padding:20px;
+}
+
+.vehicle-card-body h3{
+    font-size:22px;
+}
+
+.vehicle-card-body p{
+    color:#777;
+    margin:7px 0 15px;
+    font-size:12px;
+}
+
+.price{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.ref-price{
+    color:#666;
+    font-size:10px;
+    margin-top:4px;
+}
+
+.card-button{
+    width:100%;
+    padding:12px;
+    border:1px solid #444;
+    background:#181818;
+    color:white;
+    border-radius:7px;
+}
+
+.card-button:hover{
+    border-color:var(--red);
+}
+
+/* =========================
+   ORDERS
+========================= */
+
+.order{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:13px;
+    padding:22px;
+    margin-bottom:15px;
+}
+
+.order-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.order h3{
+    font-size:20px;
+}
+
+.status{
+    color:#65d78a;
+    font-size:12px;
+}
+
+.progress{
+    height:6px;
+    background:#292929;
+    border-radius:10px;
+    margin:20px 0;
+    overflow:hidden;
+}
+
+.progress div{
+    width:72%;
+    height:100%;
+    background:var(--red);
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+    border-bottom:1px solid #292929;
+}
+
+.settings-row:last-child{
+    border-bottom:0;
+}
+
+.settings-row span{
+    color:#999;
+    font-size:13px;
+}
+
+.toggle{
+    width:42px;
+    height:23px;
+    background:#444;
+    border-radius:20px;
+    position:relative;
+}
+
+.toggle::after{
+    content:"";
+    width:17px;
+    height:17px;
+    background:white;
+    position:absolute;
+    top:3px;
+    left:3px;
+    border-radius:50%;
+}
+
+.toggle.on{
+    background:var(--red);
+}
+
+.toggle.on::after{
+    left:22px;
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-box{
+    max-width:700px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:15px;
+    padding:28px;
+}
+
+.payment-warning{
+    background:#211013;
+    border:1px solid #512024;
+    padding:15px;
+    border-radius:9px;
+    color:#dca3a6;
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:22px;
+}
+
+.payment-option{
+    border:1px solid #333;
+    padding:20px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.payment-option h3{
+    margin-bottom:8px;
+}
+
+.payment-option p{
+    color:#777;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.wallet{
+    margin-top:15px;
+    background:#070707;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:14px;
+    word-break:break-all;
+    color:#e8e8e8;
+    font-family:monospace;
+    font-size:12px;
+}
+
+.copy-btn{
+    margin-top:10px;
+    background:var(--red);
+    border:0;
+    color:white;
+    padding:10px 15px;
+    border-radius:7px;
+}
+
+/* =========================
+   DOCUMENTS
+========================= */
+
+.document{
+    background:#111;
+    border:1px solid #292929;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.document span{
+    color:#aaa;
+}
+
+.document button{
+    background:transparent;
+    border:0;
+    color:#ff4c52;
+}
+
+/* =========================
+   CONFIGURATOR
+========================= */
+
+.config-box{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.config-image{
+    height:350px;
+    background-size:cover;
+    background-position:center;
+}
+
+.config-content{
+    padding:25px;
+}
+
+.config-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.option{
+    background:#0a0a0a;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:15px;
+    color:#aaa;
+}
+
+.option.selected{
+    border-color:var(--red);
+    color:white;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#202020;
+    border:1px solid #444;
+    color:white;
+    padding:14px 18px;
+    border-radius:8px;
+    display:none;
+    z-index:100;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:20px 15px 80px;
+    }
+
+    .mobile-top{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:25px;
+    }
+
+    .mobile-top strong{
+        letter-spacing:2px;
+    }
+
+    .mobile-menu{
+        background:#151515;
+        color:white;
+        border:1px solid #333;
+        padding:9px 12px;
+        border-radius:7px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .vehicle-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+
+    .auth-box{
+        padding:28px 20px;
+    }
+
+    .vehicle-info{
+        left:25px;
+        bottom:25px;
+    }
+
+    .vehicle-info h2{
+        font-size:35px;
+    }
+
+    .vehicle-hero{
+        min-height:330px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .vehicle-grid{
+        grid-template-columns:1fr;
+    }
+
+    .config-options{
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+        align-items:flex-start;
+    }
+
+    .profile-pill{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="demo-banner">
+    <strong>UNOFFICIAL DEMONSTRATION</strong> —
+    VoltDrive is not Tesla, Inc. and this website is not operated by Tesla.
+</div>
+
+<!-- =========================
+     AUTHENTICATION
+========================= -->
+
+<section class="auth-screen" id="authScreen">
+
+    <div class="auth-box" id="loginBox">
+
+        <div class="brand">
+            <div class="red-mark">T</div>
+            <h1>VOLTDRIVE</h1>
+            <p>ELECTRIC MOBILITY DEMO</p>
+        </div>
+
+        <h2>Sign in</h2>
+
+        <p class="auth-subtitle">
+            Access your electric vehicle account
+        </p>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    required
+                >
+            </div>
+
+            <div class="field">
+
+                <label>Password</label>
+
+                <div class="password-wrap">
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        onclick="togglePassword('loginPassword',this)"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button class="primary">
+                Sign in
+            </button>
+
+        </form>
+
+        <button class="secondary" onclick="demoLogin()">
+            Enter Demo Account
+        </button>
+
+        <div class="auth-links">
+            Don't have an account?
+            <a href="#" onclick="showRegister(event)">
+                Create account
+            </a>
+        </div>
+
+        <div class="notice">
+            Demo authentication only. Your password is not sent to Tesla
+            or any external service.
+        </div>
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <div class="auth-box hidden" id="registerBox">
+
+        <div class="brand">
+            <div class="red-mark">T</div>
+            <h1>VOLTDRIVE</h1>
+            <p>ELECTRIC MOBILITY DEMO</p>
+        </div>
+
+        <h2>Create account</h2>
+
+        <p class="auth-subtitle">
+            Create your demonstration account
+        </p>
+
+        <form id="registerForm">
+
+            <div class="field">
+                <label>Full name</label>
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Your name"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="you@example.com"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create password"
+                    minlength="6"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>Confirm password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                    required
+                >
+            </div>
+
+            <button class="primary">
+                Create account
+            </button>
+
+        </form>
+
+        <div class="auth-links">
+            Already have an account?
+            <a href="#" onclick="showLogin(event)">
+                Sign in
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<div class="app" id="app">
+
+    <aside class="sidebar">
+
+        <div class="side-brand">
+            <div class="side-logo">T</div>
+
+            <div>
+                <strong>VOLTDRIVE</strong>
+                <small>UNOFFICIAL DEMO</small>
+            </div>
+        </div>
+
+        <div class="nav">
+
+            <div class="nav-title">ACCOUNT</div>
+
+            <button class="active" onclick="openPage('dashboard',this)">
+                Dashboard
+            </button>
+
+            <button onclick="openPage('vehicles',this)">
+                Vehicles
+            </button>
+
+            <button onclick="openPage('orders',this)">
+                Orders
+            </button>
+
+            <button onclick="openPage('payments',this)">
+                Payments
+            </button>
+
+            <button onclick="openPage('documents',this)">
+                Documents
+            </button>
+
+            <div class="nav-title">SERVICES</div>
+
+            <button onclick="openPage('service',this)">
+                Service
+            </button>
+
+            <button onclick="openPage('charging',this)">
+                Charging
+            </button>
+
+            <div class="nav-title">ACCOUNT</div>
+
+            <button onclick="openPage('settings',this)">
+                Settings
+            </button>
+
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Sign out
+        </button>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="mobile-top">
+            <strong>VOLTDRIVE</strong>
+
+            <button
+                class="mobile-menu"
+                onclick="toggleMobileNav()"
+            >
+                Menu
+            </button>
+        </div>
+
+
+        <!-- DASHBOARD -->
+
+        <section class="page active" id="dashboard">
+
+            <div class="page-header">
+
+                <div>
+                    <h1 id="welcomeText">Welcome</h1>
+                    <p>Your electric vehicle account</p>
+                </div>
+
+                <div class="profile-pill" id="profileEmail">
+                    demo@example.com
+                </div>
+
+            </div>
+
+            <div class="vehicle-hero">
+
+                <div class="vehicle-info">
+
+                    <span>YOUR VEHICLE</span>
+
+                    <h2>Model Y</h2>
+
+                    <p>
+                        Connected · Battery 87%
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span>Battery</span>
+                    <strong>87%</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Range</span>
+                    <strong>287 mi</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Odometer</span>
+                    <strong>8,421 mi</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Software</span>
+                    <strong>2026.28</strong>
+                </div>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <h3>Vehicle Controls</h3>
+
+                    <p>
+                        Lock and unlock, check charging status,
+                        climate controls and vehicle information.
+                    </p>
+
+                    <button
+                        class="secondary"
+                        onclick="toast('Vehicle controls opened')"
+                    >
+                        Open Controls
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Delivery</h3>
+
+                    <p>
+                        Estimated delivery preparation is in progress.
+                    </p>
+
+                    <button
+                        class="secondary"
+                        onclick="openPage('orders')"
+                    >
+                        View Order
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VEHICLES -->
+
+        <section class="page" id="vehicles">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Vehicles</h1>
+                    <p>Explore electric vehicles</p>
+                </div>
+
+            </div>
+
+            <div class="vehicle-grid">
+
+                <div class="vehicle-card">
+
+                    <div
+                        class="vehicle-image"
+                        style="background-image:url('https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1000&q=80')"
+                    ></div>
+
+                    <div class="vehicle-card-body">
+
+                        <h3>Model 3</h3>
+
+                        <p>
+                            Electric sedan · Performance focused
+                        </p>
+
+                        <div class="price">
+                            From £39,990*
+                        </div>
+
+                        <div class="ref-price">
+                            *Reference/demo price. Verify current
+                            pricing with Tesla.
+                        </div>
+
+                        <button
+                            class="card-button"
+                            onclick="configureVehicle('Model 3')"
+                        >
+                            Configure
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vehicle-card">
+
+                    <div
+                        class="vehicle-image"
+                        style="background-image:url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1000&q=80')"
+                    ></div>
+
+                    <div class="vehicle-card-body">
+
+                        <h3>Model Y</h3>
+
+                        <p>
+                            Electric SUV · Versatile design
+                        </p>
+
+                        <div class="price">
+                            From £44,990*
+                        </div>
+
+                        <div class="ref-price">
+                            *Reference/demo price. Verify current
+                            pricing with Tesla.
+                        </div>
+
+                        <button
+                            class="card-button"
+                            onclick="configureVehicle('Model Y')"
+                        >
+                            Configure
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vehicle-card">
+
+                    <div
+                        class="vehicle-image"
+                        style="background-image:url('https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=1000&q=80')"
+                    ></div>
+
+                    <div class="vehicle-card-body">
+
+                        <h3>Model S</h3>
+
+                        <p>
+                            Premium electric performance
+                        </p>
+
+                        <div class="price">
+                            From £89,990*
+                        </div>
+
+                        <div class="ref-price">
+                            *Reference/demo price. Verify current
+                            pricing with Tesla.
+                        </div>
+
+                        <button
+                            class="card-button"
+                            onclick="configureVehicle('Model S')"
+                        >
+                            Configure
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vehicle-card">
+
+                    <div
+                        class="vehicle-image"
+                        style="background-image:url('https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1000&q=80')"
+                    ></div>
+
+                    <div class="vehicle-card-body">
+
+                        <h3>Model X</h3>
+
+                        <p>
+                            Electric SUV · Premium interior
+                        </p>
+
+                        <div class="price">
+                            From £99,990*
+                        </div>
+
+                        <div class="ref-price">
+                            *Reference/demo price. Verify current
+                            pricing with Tesla.
+                        </div>
+
+                        <button
+                            class="card-button"
+                            onclick="configureVehicle('Model X')"
+                        >
+                            Configure
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vehicle-card">
+
+                    <div
+                        class="vehicle-image"
+                        style="background-image:url('https://images.unsplash.com/photo-1617195920950-1145bf9a9f1b?auto=format&fit=crop&w=1000&q=80')"
+                    ></div>
+
+                    <div class="vehicle-card-body">
+
+                        <h3>Cybertruck</h3>
+
+                        <p>
+                            Electric pickup · Distinctive design
+                        </p>
+
+                        <div class="price">
+                            From £74,990*
+                        </div>
+
+                        <div class="ref-price">
+                            *Reference/demo price. Verify current
+                            pricing with Tesla.
+                        </div>
+
+                        <button
+                            class="card-button"
+                            onclick="configureVehicle('Cybertruck')"
+                        >
+                            Configure
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONFIGURATOR -->
+
+        <section class="page" id="configurator">
+
+            <div class="page-header">
+
+                <div>
+                    <h1 id="configTitle">Configure</h1>
+                    <p>Build your demonstration vehicle</p>
+                </div>
+
+            </div>
+
+            <div class="config-box">
+
+                <div
+                    class="config-image"
+                    id="configImage"
+                    style="background-image:url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1600&q=85')"
+                ></div>
+
+                <div class="config-content">
+
+                    <h2 id="configVehicle">
+                        Model Y
+                    </h2>
+
+                    <p style="color:#777;margin-top:8px;">
+                        Configure your preferred demonstration specification.
+                    </p>
+
+                    <div class="config-options">
+
+                        <button
+                            class="option selected"
+                            onclick="selectOption(this)"
+                        >
+                            Long Range
+                        </button>
+
+                        <button
+                            class="option"
+                            onclick="selectOption(this)"
+                        >
+                            Performance
+                        </button>
+
+                        <button
+                            class="option"
+                            onclick="selectOption(this)"
+                        >
+                            Rear-Wheel Drive
+                        </button>
+
+                    </div>
+
+                    <div style="margin-top:25px;">
+
+                        <strong>
+                            Estimated reference price:
+                        </strong>
+
+                        <span id="configPrice">
+                            £44,990
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="primary"
+                        style="margin-top:20px;"
+                        onclick="createOrder()"
+                    >
+                        Continue with configuration
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ORDERS -->
+
+        <section class="page" id="orders">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Orders</h1>
+                    <p>Your vehicle orders and delivery progress</p>
+                </div>
+
+            </div>
+
+            <div class="order">
+
+                <div class="order-top">
+
+                    <div>
+                        <h3>Model Y</h3>
+                        <p style="color:#777;margin-top:5px;">
+                            Order reference: VD-DEMO-48291
+                        </p>
+                    </div>
+
+                    <span class="status">
+                        In preparation
+                    </span>
+
+                </div>
+
+                <div class="progress">
+                    <div></div>
+                </div>
+
+                <p style="color:#777;font-size:12px;">
+                    Configuration → Payment → Registration →
+                    Delivery
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAYMENTS -->
+
+        <section class="page" id="payments">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Payments</h1>
+                    <p>Payment demonstration</p>
+                </div>
+
+            </div>
+
+            <div class="payment-box">
+
+                <div class="payment-warning">
+
+                    <strong>Important:</strong><br>
+
+                    This is a third-party demonstration payment
+                    section. This Bitcoin address is NOT a Tesla
+                    payment address and this page is NOT operated
+                    by Tesla. Do not represent this address as
+                    Tesla's payment destination.
+
+                </div>
+
+
+                <div class="payment-option">
+
+                    <h3>Bitcoin</h3>
+
+                    <p>
+                        Demonstration wallet destination supplied
+                        by the website owner.
+                    </p>
+
+                    <div class="wallet" id="btcAddress">
+                        bc1ql9erecy7s77npch880sfvj4fapvjpcud6ty6lc
+                    </div>
+
+                    <button
+                        class="copy-btn"
+                        onclick="copyBitcoin()"
+                    >
+                        Copy Bitcoin Address
+                    </button>
+
+                </div>
+
+
+                <div class="payment-option">
+
+                    <h3>Payment status</h3>
+
+                    <p>
+                        No blockchain payment is automatically
+                        confirmed by this demo. Do not assume a
+                        payment has been received simply because
+                        a transaction was submitted.
+                    </p>
+
+                    <button
+                        class="secondary"
+                        onclick="toast('Demo payment status: awaiting verification')"
+                    >
+                        Check Demo Status
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DOCUMENTS -->
+
+        <section class="page" id="documents">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Documents</h1>
+                    <p>Your demonstration account documents</p>
+                </div>
+
+            </div>
+
+            <div class="document">
+                <span>Vehicle Configuration</span>
+                <button onclick="toast('Demo document opened')">
+                    Open
+                </button>
+            </div>
+
+            <div class="document">
+                <span>Order Summary</span>
+                <button onclick="toast('Demo document opened')">
+                    Open
+                </button>
+            </div>
+
+            <div class="document">
+                <span>Delivery Details</span>
+                <button onclick="toast('Demo document opened')">
+                    Open
+                </button>
+            </div>
+
+            <div class="document">
+                <span>Payment Information</span>
+                <button onclick="toast('Demo document opened')">
+                    Open
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- SERVICE -->
+
+        <section class="page" id="service">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Service</h1>
+                    <p>Vehicle support and service</p>
+                </div>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <h3>Schedule Service</h3>
+
+                    <p>
+                        Create a demonstration service appointment
+                        for your vehicle.
+                    </p>
+
+                    <button
+                        class="secondary"
+                        onclick="toast('Service appointment demo opened')"
+                    >
+                        Schedule
+
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Roadside Assistance</h3>
+
+                    <p>
+                        Emergency-support interface demonstration.
+                    </p>
+
+                    <button
+                        class="secondary"
+                        onclick="toast('Roadside assistance demo')"
+                    >
+                        Get Help
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHARGING -->
+
+        <section class="page" id="charging">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Charging</h1>
+                    <p>Charging information</p>
+                </div>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span>Battery</span>
+                    <strong>87%</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Charging</span>
+                    <strong>Complete</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Range</span>
+                    <strong>287 mi</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Location</span>
+                    <strong>Home</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+
+        <section class="page" id="settings">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Settings</h1>
+                    <p>Manage your demonstration account</p>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="settings-row">
+
+                    <div>
+                        <strong>Profile</strong><br>
+                        <span id="settingsName">
+                            Demo User
+                        </span>
+                    </div>
+
+                    <button
+                        class="secondary"
+                        style="width:auto;margin:0;"
+                        onclick="toast('Profile editor demo')"
+                    >
+                        Edit
+                    </button>
+
+                </div>
+
+                <div class="settings-row">
+
+                    <div>
+                        <strong>Email</strong><br>
+                        <span id="settingsEmail">
+                            demo@example.com
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="settings-row">
+
+                    <div>
+                        <strong>Notifications</strong><br>
+                        <span>Account and vehicle updates</span>
+                    </div>
+
+                    <div
+                        class="toggle on"
+                        onclick="this.classList.toggle('on')"
+                    ></div>
+
+                </div>
+
+                <div class="settings-row">
+
+                    <div>
+                        <strong>Security alerts</strong><br>
+                        <span>Receive account security alerts</span>
+                    </div>
+
+                    <div
+                        class="toggle on"
+                        onclick="this.classList.toggle('on')"
+                    ></div>
+
+                </div>
+
+                <div class="settings-row">
+
+                    <div>
+                        <strong>Two-factor authentication</strong><br>
+                        <span>Demo security setting</span>
+                    </div>
+
+                    <button
+                        class="secondary"
+                        style="width:auto;margin:0;"
+                        onclick="toast('2FA demo setting opened')"
+                    >
+                        Manage
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   AUTH
+========================= */
+
+const authScreen = document.getElementById("authScreen");
+const loginBox = document.getElementById("loginBox");
+const registerBox = document.getElementById("registerBox");
+const app = document.getElementById("app");
+
+let currentUser = {
+    name:"Demo User",
+    email:"demo@example.com"
+};
+
+
+function togglePassword(id,button){
+
+    const input=document.getElementById(id);
+
+    if(input.type==="password"){
+        input.type="text";
+        button.textContent="Hide";
+    }else{
+        input.type="password";
+        button.textContent="Show";
+    }
+}
+
+
+function showRegister(event){
+
+    if(event) event.preventDefault();
+
+    loginBox.classList.add("hidden");
+    registerBox.classList.remove("hidden");
+}
+
+
+function showLogin(event){
+
+    if(event) event.preventDefault();
+
+    registerBox.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+}
+
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const email=document.getElementById("loginEmail").value.trim();
+
+    if(!email){
+        return;
+    }
+
+    currentUser.name=email.split("@")[0];
+    currentUser.email=email;
+
+    enterApp();
+
+});
+
+
+document.getElementById("registerForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const name=document.getElementById("registerName").value.trim();
+    const email=document.getElementById("registerEmail").value.trim();
+    const password=document.getElementById("registerPassword").value;
+    const confirm=document.getElementById("confirmPassword").value;
+
+    if(password!==confirm){
+
+        toast("Passwords do not match.");
+
+        return;
+    }
+
+    currentUser.name=name;
+    currentUser.email=email;
+
+    enterApp();
+
+});
+
+
+function demoLogin(){
+
+    currentUser={
+        name:"Demo User",
+        email:"demo@example.com"
+    };
+
+    enterApp();
+
+}
+
+
+function enterApp(){
+
+    authScreen.style.display="none";
+    app.style.display="block";
+
+    document.getElementById("welcomeText").textContent=
+        "Welcome, "+currentUser.name;
+
+    document.getElementById("profileEmail").textContent=
+        currentUser.email;
+
+    document.getElementById("settingsName").textContent=
+        currentUser.name;
+
+    document.getElementById("settingsEmail").textContent=
+        currentUser.email;
+
+    openPage("dashboard");
+
+}
+
+
+function logout(){
+
+    app.style.display="none";
+    authScreen.style.display="flex";
+
+    showLogin();
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openPage(pageId,button){
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const page=document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav button").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    if(button){
+        button.classList.add("active");
+    }
+}
+
+
+/* =========================
+   VEHICLE CONFIGURATOR
+========================= */
+
+function configureVehicle(model){
+
+    openPage("configurator");
+
+    document.getElementById("configVehicle").textContent=model;
+    document.getElementById("configTitle").textContent=
+        "Configure "+model;
+
+    const prices={
+        "Model 3":"£39,990",
+        "Model Y":"£44,990",
+        "Model S":"£89,990",
+        "Model X":"£99,990",
+        "Cybertruck":"£74,990"
+    };
+
+    document.getElementById("configPrice").textContent=
+        prices[model] || "Reference price";
+
+}
+
+
+function selectOption(element){
+
+    document.querySelectorAll(".option").forEach(option=>{
+        option.classList.remove("selected");
+    });
+
+    element.classList.add("selected");
+
+}
+
+
+function createOrder(){
+
+    toast(
+        "Demo configuration saved. No real vehicle order was placed."
+    );
+
+    openPage("orders");
+
+}
+
+
+/* =========================
+   BITCOIN
+========================= */
+
+const bitcoinAddress=
+    "bc1ql9erecy7s77npch880sfvj4fapvjpcud6ty6lc";
+
+
+function copyBitcoin(){
+
+    navigator.clipboard.writeText(bitcoinAddress)
+    .then(()=>{
+
+        toast("Bitcoin address copied.");
+
+    })
+    .catch(()=>{
+
+        toast("Copy failed. Please copy the address manually.");
+
+    });
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function toast(message){
+
+    const element=document.getElementById("toast");
+
+    element.textContent=message;
+    element.style.display="block";
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+
+        element.style.display="none";
+
+    },3000);
+
+}
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMobileNav(){
+
+    toast(
+        "On mobile, use the sections through the navigation controls."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
