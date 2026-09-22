@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TESLAI — Vehicle Acquisition</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f5f7;
+  color: #171717;
+}
+
+.header {
+  background: #111;
+  color: white;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.logo {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.demo-badge {
+  background: #e91e3d;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.hero {
+  background: linear-gradient(135deg, #111, #2a2a2a);
+  color: white;
+  text-align: center;
+  padding: 55px 20px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.hero p {
+  color: #ccc;
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 900px;
+  margin: 35px auto;
+  padding: 0 18px;
+}
+
+.notice {
+  background: #fff3f5;
+  border-left: 4px solid #e91e3d;
+  padding: 15px;
+  margin-bottom: 22px;
+  border-radius: 6px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.form-card {
+  background: white;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 8px 35px rgba(0,0,0,.08);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 25px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.section-title:first-child {
+  margin-top: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 17px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 15px;
+  outline: none;
+  background: white;
+  transition: .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #e91e3d;
+  box-shadow: 0 0 0 3px rgba(233,30,61,.08);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 28px;
+  border: none;
+  background: #e91e3d;
+  color: white;
+  padding: 17px;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.submit-btn:hover {
+  background: #c91432;
+}
+
+.submit-btn:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #777;
+  font-size: 12px;
+}
+
+.success {
+  display: none;
+  text-align: center;
+  padding: 35px 15px;
+}
+
+.success-icon {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: #e91e3d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 38px;
+}
+
+.success h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.success p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.demo-result {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: #eee;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+@media (max-width: 650px) {
+  .header {
+    padding: 0 18px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .demo-badge {
+    font-size: 9px;
+  }
+
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="45648.webp" class="logo" alt="TESLAI logo">
+    <span>TESLAI</span>
+  </div>
+
+  <div class="demo-badge">UNOFFICIAL DEMO</div>
+</header>
+
+<section class="hero">
+  <h1>Vehicle Acquisition</h1>
+  <p>
+    Complete the vehicle acquisition and delivery information form
+    below.
+  </p>
+</section>
+
+<main class="container">
+
+  <div class="notice">
+    <strong>TESLAI DEMO:</strong>
+    This is a demonstration website and is not affiliated with Tesla,
+    Inc. No real identity verification, payment processing, or vehicle
+    order is performed by this page.
+  </div>
+
+  <div class="form-card">
+
+    <form id="vehicleForm">
+
+      <div class="section-title">Personal Information</div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>First Name *</label>
+          <input type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Middle Name</label>
+          <input type="text">
+        </div>
+
+        <div class="field">
+          <label>Surname *</label>
+          <input type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Phone Number *</label>
+          <input type="tel" placeholder="+234..." required>
+        </div>
+
+        <div class="field">
+          <label>Country *</label>
+          <input type="text" required>
+        </div>
+
+        <div class="field">
+          <label>State / Province *</label>
+          <input type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Local Government / Municipality *</label>
+          <input type="text" required>
+        </div>
+
+        <div class="field">
+          <label>P.O. Box</label>
+          <input type="text">
+        </div>
+
+      </div>
+
+      <div class="section-title">Identification</div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Identification Type</label>
+          <select>
+            <option value="">Select type</option>
+            <option>National ID</option>
+            <option>Passport</option>
+            <option>Driver's Licence</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>ID / Reference Number</label>
+          <input type="text"
+                 placeholder="Demo reference number">
+        </div>
+
+      </div>
+
+      <div class="section-title">Vehicle Selection</div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Vehicle Model *</label>
+          <select required>
+            <option value="">Select vehicle</option>
+            <option>Model S</option>
+            <option>Model 3</option>
+            <option>Model X</option>
+            <option>Model Y</option>
+            <option>Cybertruck</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Desired Purchase Amount *</label>
+          <input type="number"
+                 min="0"
+                 placeholder="Enter amount"
+                 required>
+        </div>
+
+      </div>
+
+      <div class="section-title">Delivery Information</div>
+
+      <div class="grid">
+
+        <div class="field full">
+          <label>House / Street Address *</label>
+          <input type="text"
+                 placeholder="House number and street"
+                 required>
+        </div>
+
+        <div class="field full">
+          <label>Delivery Address *</label>
+          <textarea
+            placeholder="Enter the complete delivery address"
+            required></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Additional Delivery Instructions</label>
+          <textarea
+            placeholder="Optional delivery information"></textarea>
+        </div>
+
+      </div>
+
+      <button class="submit-btn" id="submitBtn" type="submit">
+        Submit Application
+      </button>
+
+    </form>
+
+    <div class="success" id="success">
+
+      <div class="success-icon">✓</div>
+
+      <h2>Demo Verified</h2>
+
+      <p>
+        Your TESLAI demo application has been submitted successfully.
+        This confirmation is only a simulated demonstration and does
+        not represent real identity, payment, or vehicle verification.
+      </p>
+
+      <div class="demo-result">
+        DEMO APPLICATION VERIFIED
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  © 2026 TESLAI — Unofficial Demonstration
+</footer>
+
+<script>
+const form = document.getElementById("vehicleForm");
+const button = document.getElementById("submitBtn");
+const success = document.getElementById("success");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  button.disabled = true;
+  button.textContent = "Processing...";
+
+  setTimeout(() => {
+    form.style.display = "none";
+    success.style.display = "block";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, 1500);
+});
+</script>
+
+</body>
+</html>
